@@ -1,5 +1,4 @@
 import 'package:currency_converter/Constants/colors.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +9,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  double result = 0;
+  final TextEditingController textEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
@@ -34,9 +36,14 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              '0',
-              style: TextStyle(
+            const Icon(
+              Icons.currency_rupee_sharp,
+              color: Colors.white,
+              size: 40,
+            ),
+            Text(
+              result != 0 ? result.toStringAsFixed(2) : '0',
+              style: const TextStyle(
                 fontSize: 55,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -45,6 +52,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextField(
+                controller: textEditingController,
                 style: const TextStyle(
                   color: Colors.black,
                 ),
@@ -67,9 +75,11 @@ class _HomePageState extends State<HomePage> {
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: TextButton(
+              child: ElevatedButton(
                 onPressed: () {
-                  if (kDebugMode) print('button');
+                  setState(() {
+                    result = double.parse(textEditingController.text) * 81;
+                  });
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: cardColor,
